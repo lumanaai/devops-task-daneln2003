@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  haproxy:
+    image: haproxy:2.9
+    container_name: haproxy-lb
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+
+  mongo-0:
+    image: mongo:7.0.16
+    container_name: mongo-0
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo-0
+      MONGO_INITDB_ROOT_PASSWORD: mongo-0
+      MONGO_PORT: 27030
+    network_mode: host
+    healthcheck:
+      test: echo "try { rs.status() } catch (err)" | mongosh --port 27030 -u mongo-0 -p mongo-0
+      interval: 5s
+      timeout: 15s
+      start_period: 15s
+      retries: 10
+    volumes:
+      - mongo-0:/data/db
+      - ./mongo-keyfile:/etc/mongo-keyfile
+
+  mongo-1:
+    image: mongo:7.0.16
+    container_name: mongo-1
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo-1
+      MONGO_INITDB_ROOT_PASSWORD: mongo-1
+      MONGO_PORT: 27031
+    network_mode: host
+    healthcheck:
+      test: echo "try { rs.status() } catch (err)" | mongosh --port 27031 -u mongo-1 -p mongo-1
+      interval: 5s
+      timeout: 15s
+      start_period: 15s
+      retries: 10
+    volumes:
+      - mongo-1:/data/db
+      - ./mongo-keyfile:/etc/mongo-keyfile
+
+  mongo-2:
+    image: mongo:7.0.16
+    container_name: mongo-2
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo-2
+      MONGO_INITDB_ROOT_PASSWORD: mongo-2
+      MONGO_PORT: 27032
+    network_mode: host
+    healthcheck:
+      test: echo "try { rs.status() } catch (err)" | mongosh --port 27032 -u mongo-2 -p mongo-2
+      interval: 5s
+      timeout: 15s
+      start_period: 15s
+      retries: 10
+    volumes:
+      - mongo-2:/data/db
+      - ./mongo-keyfile:/etc/mongo-keyfile
+
+volumes:
+  mongo-0: {}
+  mongo-1: {}
+  mongo-2: {}

@@ -1,0 +1,12 @@
+{
+  "name": "mongo-product-demo",
+  "version": "1.0.0",
+  "description": "Demo script to insert a product into MongoDB replica set",
+  "main": "create_product.js",
+  "scripts": {
+    "start": "node create_product.js"
+  },
+  "dependencies": {
+    "mongodb": "^5.7.0"
+  }
+}
