@@ -1,13 +1,15 @@
+# Tailored for macOS Docker Compose setup
+# Admin credentials: username is root; password will be taken from env MONGO_ROOT_PASSWORD if not set here.
+admin_user: root
+# admin_password: ""   # optional; if omitted, scripts read MONGO_ROOT_PASSWORD env var
+
 servers:
   - host: "127.0.0.1"
     port: 27030
-    user: "mongo-0"
-    password: "mongo-0"
+    rs_host: "mongo-0:27017"
   - host: "127.0.0.1"
     port: 27031
-    user: "mongo-1"
-    password: "mongo-1"
+    rs_host: "mongo-1:27017"
   - host: "127.0.0.1"
     port: 27032
-    user: "mongo-2"
-    password: "mongo-2"
+    rs_host: "mongo-2:27017"
