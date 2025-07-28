@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	uri = "mongodb://appuser:appuserpassword@127.0.0.1:27034/appdb?replicaSet=rs0"
+	uri = "mongodb://appuser:appuserpassword@host.docker.internal:27034/appdb?directConnection=true"
 )
 
 type Product struct {
