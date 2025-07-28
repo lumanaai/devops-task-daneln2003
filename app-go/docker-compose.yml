@@ -5,4 +5,4 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: product-reader-go
-    network_mode: host
+    #network_mode: host
